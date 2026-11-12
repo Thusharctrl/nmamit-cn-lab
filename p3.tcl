@@ -1,6 +1,8 @@
 set ns [new Simulator]
+
 set namfile [open exp3.nam w]
 $ns namtrace-all $namfile
+
 set tracefile [open exp3.tr w]
 $ns trace-all $tracefile
 
