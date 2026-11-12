@@ -27,7 +27,7 @@ set n3 [$ns node]
 # set label
 $n0 label "TCP"
 $n1 label "UDP"
-$n2 label "Receiver"
+$n3 label "Receiver"
 
 # Create links between nodes
 $ns duplex-link $n0 $n2 1Mb 10ms DropTail
