@@ -2,6 +2,7 @@ div=[1,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1]
 m=len(div)
 data=[]
 n=int(input("enter the no of bits:"))
+
 for i in range (n):
     data.append(int(input()))
 cdata=data.copy()
@@ -18,6 +19,7 @@ data=data+cdata[n:]
 print("transmitted cd:",data)
 
 ch=input("enter ur choic Y/N to introduce error")
+
 if(ch.upper()=='Y'):
     p=int(input("enter a position:"))
     if 1<=p<=len(data):
