@@ -26,6 +26,9 @@ if(ch.upper()=='Y'):
         data[p-1]=1-data[p-1]
     else:
         print("invalid")
+
+
+print("Received codeword:", data)
 for i in range (n):
     if data[i]==1:
         for j in range (m):
