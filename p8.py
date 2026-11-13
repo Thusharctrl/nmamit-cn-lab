@@ -2,58 +2,47 @@
 import socket
 import os
 
-serverAddress = ("localhost", 8888)
-
-serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-serverSocket.bind(serverAddress)
-
-serverSocket.listen(1)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(("localhost", 8888))
+s.listen(1)
 
 print("Server is listening for incoming connections...")
 
 while True:
-    clientSocket, clientAddress = serverSocket.accept()
+    c, addr = s.accept()
+    print("Accepted connection from", addr)
 
-    print("Accepted connection from", clientAddress)
+    name = c.recv(1024).decode()
+    print("Received file name:", name)
 
-    fileName = clientSocket.recv(1024).decode()
-
-    print("Received file name:", fileName)
-
-    if os.path.exists(fileName):
-        file = open(fileName, "rb")
-        fileContents = file.read()
-        file.close()
-
-        clientSocket.send(fileContents)
-
+    if os.path.exists(name):
+        f = open(name, "rb")
+        data = f.read()
+        f.close()
+        c.send(data)
     else:
-        clientSocket.send(b"File not found")
+        c.send(b"File not found")
 
-    clientSocket.close()
+    c.close()
+
 
 
 
 #tcp_client.py
 import socket
 
-serverAddress = ("localhost", 8888)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("localhost", 8888))
 
-clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+name = input("Enter the file name: ")
+s.send(name.encode())
 
-clientSocket.connect(serverAddress)
+data = s.recv(1024).decode()
 
-fileName = input("Enter the file name: ")
-
-clientSocket.send(fileName.encode())
-
-fileContents = clientSocket.recv(1024).decode()
-
-if fileContents == "File not found":
+if data == "File not found":
     print("File not found on server")
 else:
     print("File contents:")
-    print(fileContents)
+    print(data)
 
-clientSocket.close()
+s.close()
