@@ -61,41 +61,6 @@ $ns run
 
 
 
-# Labels
-$n0 label "TCPSource"
-$n10 label "TCPSink"
-
-# Colors
-$ns color 1 red
-$n0 color blue
-$n10 color orange
-
-# Link from source to LAN gateway
-$ns duplex-link $n0 $n1 3Mb 20ms DropTail
-
-# Create LAN with 10 nodes: n1 to n10
-$ns make-lan "$n1 $n2 $n3 $n4 $n5 $n6 $n7 $n8 $n9 $n10" 2Mb 40ms LL Queue/DropTail Mac/802_3
-
-$ns duplex-link-op $n0 $n1 orient right
-
-# TCP agent
-set tcp [new Agent/TCP]
-$ns attach-agent $n0 $tcp
-$tcp set class_ 1
-
-# TCP sink at n10
-set tcpsink [new Agent/TCPSink]
-$ns attach-agent $n10 $tcpsink
-$ns connect $tcp $tcpsink
-
-# FTP application
-set ftp [new Application/FTP]
-$ftp attach-agent $tcp
-
-
-
-
-
 
 # gedit exp3.awk
 BEGIN {
