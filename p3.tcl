@@ -60,7 +60,7 @@ $ns run
 
 
 
-
+# 2 awk files as mentioned in q ,refer awk of 3 also 
 
 # gedit exp3.awk
 BEGIN {
